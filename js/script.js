@@ -7,7 +7,7 @@ header.appendChild(headerText);
 //Document title
 document.title = 'Etch a Sketch!'
 
-//Container for grid + slider
+//Container for grid + sliderContainer
 const userInput = document.createElement('div');
 userInput.style.display = 'flex';
 
@@ -24,26 +24,36 @@ gridContainer.style.width = '400px';
 
 
 //Container for User Input
+const sliderContainer = document.createElement('div');
+const slider = document.createElement('input');
+const valueDisplay = document.createElement('p');
+slider.type = 'range';
+slider.min = '16';
+slider.max = '100';
+slider.value = '16';
+sliderContainer.id = 'sliderContainer';
+sliderContainer.appendChild(slider);
 
-const slider = document.createElement('div');
-const sliderInput = document.createElement('input');
-sliderInput.type = 'range';
-sliderInput.min = '16';
-sliderInput.max = '100';
-slider.id = 'slider';
-slider.appendChild(sliderInput);
-const displaySliderValue = document.createElement('p');
+valueDisplay.innerHTML = slider.value;
+sliderContainer.appendChild(valueDisplay);
+slider.onchange = (event)=> {
+    valueDisplay.innerHTML = slider.value;
+    removeGrid(gridContainer);
+    createGrid();
+    userInput.appendChild(gridContainer);
+    userInput.appendChild(sliderContainer);
+    
+}
 
-
-displaySliderValue.innerHTML = sliderInput.value;
-slider.appendChild(displaySliderValue);
-
+const button = document.createElement('button');
+button.addEventListener('click', (e) => {
+    
+})
 
 
 
 userInput.appendChild(gridContainer);
-userInput.appendChild(slider);
-
+userInput.appendChild(sliderContainer);
 
 
 
@@ -67,16 +77,20 @@ document.body.style.justifyContent = 'space-between';
 document.body.style.alignItems = 'center';
 
 function calculateSquareSize(){
-    
+    return 400/slider.value;
 }
 
+console.log(slider.value);
 
 
 function createGrid(){
-    for(let i = 0; i < 4096; i++){
+    let squareSize = calculateSquareSize();
+    console.log(squareSize);
+    for(let i = 0; i < slider.value**2; i++){
         let singleGridSquare = document.createElement('div');
-        singleGridSquare.style.height =  '6.25px';
-        singleGridSquare.style.width =  '6.25px';
+        singleGridSquare.style.height =  `${squareSize}px`;
+        console.log(singleGridSquare.style.height);
+        singleGridSquare.style.width =  `${squareSize}px`;
         singleGridSquare.style.backgroundColor = 'green';
         singleGridSquare.classList = 'innerDiv'
         gridContainer.appendChild(singleGridSquare);
@@ -87,6 +101,15 @@ function createGrid(){
 
 createGrid();
 
+const gridCatcher = document.querySelector('.grid-container');
+
+function removeGrid(gridCatcher){
+    while(gridCatcher.firstChild){
+        gridCatcher.removeChild(gridCatcher.firstChild);
+    }
+    console.log(gridContainer);
+}
+
 
 //Attaching gridContainer to document body
 document.body.appendChild(header);
@@ -94,8 +117,6 @@ document.body.appendChild(userInput);
 document.body.appendChild(footer);
 
 
-console.log(sliderSelector);
-console.log(slider);
 
 
 
@@ -123,11 +144,3 @@ selectedDiv.addEventListener('click', (e) => {
 })
 
 
-
-
-
-const newElement = document.querySelector('div');
-
-
-console.log(newElement);
-console.log()
