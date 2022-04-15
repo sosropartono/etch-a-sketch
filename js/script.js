@@ -1,7 +1,7 @@
 //Header
 const header = document.createElement('div');
 const headerText = document.createElement('h1');
-headerText.innerHTML = 'Etch a Sketch!';
+headerText.innerHTML = 'Etch a Sketch';
 header.appendChild(headerText);
 
 //Document title
@@ -44,13 +44,6 @@ slider.onchange = (event)=> {
     userInput.appendChild(sliderContainer);
     
 }
-
-const button = document.createElement('button');
-button.addEventListener('click', (e) => {
-    
-})
-
-
 
 userInput.appendChild(gridContainer);
 userInput.appendChild(sliderContainer);
@@ -115,12 +108,6 @@ function removeGrid(gridCatcher){
 document.body.appendChild(header);
 document.body.appendChild(userInput);
 document.body.appendChild(footer);
-
-
-
-
-
-
 const selectedDiv = document.querySelector('div.grid-container');
 
 selectedDiv.addEventListener('mousedown', (e) => {
@@ -142,5 +129,16 @@ selectedDiv.addEventListener('click', (e) => {
     e.target.style.backgroundColor = 'black';
 
 })
+
+const rgbButton = document.createElement('button');
+let random = Math.floor(math.random() * 255)
+rgbButton.addEventListener('click', (e) => {
+    selectedDiv.addEventListener('mousedown')
+    e.target.style.backgroundColor = `rgb(${random}, ${random}, ${random})`;
+})
+userInput.appendChild(rgbButton);
+
+const regButton = document.createElement('button');
+
 
 
